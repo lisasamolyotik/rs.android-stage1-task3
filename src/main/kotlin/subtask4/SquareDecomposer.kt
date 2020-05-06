@@ -10,7 +10,7 @@ class SquareDecomposer {
         return result.toTypedArray()
     }
 
-    fun decomposer(n: Long, remain: Long): MutableList<Int>?{
+    private fun decomposer(n: Long, remain: Long): MutableList<Int>?{
         if(remain == 0L) {
             return mutableListOf(n.toInt())
         }
