@@ -4,19 +4,23 @@ class SquareDecomposer {
 
     // TODO: Complete the following function
     fun decomposeNumber(number: Int): Array<Int>? {
-        val result = findArray(number, number*number)
-        return result?.subList(0, result.lastIndex - 1)?.toTypedArray()
+        val longNumber = number.toLong()
+        val result = decomposer(longNumber, longNumber * longNumber) ?: return null
+        result.remove(result.last())
+        return result.toTypedArray()
     }
 
-    fun findArray(n: Int, remain: Int): MutableList<Int>? {
-        if (remain == 0) {
-            return mutableListOf(n)
+    fun decomposer(n: Long, remain: Long): MutableList<Int>?{
+        if(remain == 0L) {
+            return mutableListOf(n.toInt())
         }
-        for (i in n-1 downTo 0) {
-            if (remain - i * i >= 0) {
-                val result = findArray(i, remain - i * i)
-                result?.add(n)
-                return result
+        for( i in n-1 downTo 0) {
+            if((remain - i * i) >= 0){
+                val result = decomposer(i, (remain - i * i))
+                if(result != null){
+                    result.add(n.toInt())
+                    return result
+                }
             }
         }
         return null
