@@ -13,13 +13,14 @@ class FullBinaryTrees {
         }
 
         val array = combinations(count)
-        var result = mutableListOf<String>()
+        val result = mutableListOf<String>()
 
         for(node in array) {
             storage = mutableListOf()
             levelOrderTraversal(node)
-            while(storage.last() == "null") {
-                storage.remove(storage.last())
+            for (i in storage.lastIndex downTo 0) {
+                if (storage[i] == "0") break
+                else storage.removeAt(storage.lastIndex)
             }
             val subResult = storage.joinToString(separator = ",", prefix = "[", postfix = "]")
             result.add(subResult)
@@ -34,7 +35,7 @@ class FullBinaryTrees {
             return result
         }
 
-        for(i in 1 until remain) {
+        for(i in 1 until remain - 1) {
             if(i == 2 || remain - i - 1 == 2) continue
             val left = combinations(i)
             val right = combinations(remain - i - 1)
